@@ -1,8 +1,8 @@
 # spring-boot-starter-akka
 
-基于spring-boot和akka的集成
-1. 将ActorSystem纳入spring的管辖范围，能够在代码中自动注入ActorSystem
-2. 支持Remote Actor的自动创建
+基于spring-boot和akka的集成<br>
+1. 将ActorSystem纳入spring的管辖范围，能够在代码中自动注入ActorSystem<br>
+2. 支持Remote Actor的自动创建<br>
 
 ##如何使用
 * 在Spring Boot项目的pom.xml中添加以下依赖:
