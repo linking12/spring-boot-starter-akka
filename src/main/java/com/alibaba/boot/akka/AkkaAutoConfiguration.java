@@ -2,6 +2,7 @@ package com.alibaba.boot.akka;
 
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -41,6 +42,7 @@ public class AkkaAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "akka", name = { "actorBeanClass", "actorName" })
     public ActorRef getRemoteActorRef() throws ClassNotFoundException {
         ActorSystem actorSystem = getActorSystem();
         @SuppressWarnings("unchecked")
