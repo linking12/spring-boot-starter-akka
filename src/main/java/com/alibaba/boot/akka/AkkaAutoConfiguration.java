@@ -42,7 +42,7 @@ public class AkkaAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "akka", name = { "actorBeanClass", "actorName" })
+    @ConditionalOnProperty(prefix = "spring.akka", name = { "actorBeanClass", "actorName" }, matchIfMissing = true)
     public ActorRef getRemoteActorRef() throws ClassNotFoundException {
         ActorSystem actorSystem = getActorSystem();
         @SuppressWarnings("unchecked")
