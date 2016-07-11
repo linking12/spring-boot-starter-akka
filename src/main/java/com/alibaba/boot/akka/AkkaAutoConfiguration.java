@@ -47,7 +47,8 @@ public class AkkaAutoConfiguration {
         ActorSystem actorSystem = getActorSystem();
         @SuppressWarnings("unchecked")
         Props props = SpringProps.create(actorSystem,
-                                         (Class<? extends UntypedActor>) Class.forName(akkaProperties.getActorBeanClass()));
+                                         (Class<? extends UntypedActor>) Class.forName(akkaProperties.getActorBeanClass()),
+                                         null);
         if (props == null) {
             throw new BeanCreationException("Can not create ActorRef for given parameters, actorBeanClass="
                                             + akkaProperties.getActorBeanClass());

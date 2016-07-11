@@ -9,19 +9,41 @@ public class SpringActorProducer implements IndirectActorProducer {
     final ApplicationContext applicationContext;
     final String             actorBeanName;
     final Class<?>           requiredType;
+    final Object[]           args;
 
     public SpringActorProducer(ApplicationContext applicationContext, String actorBeanName){
-        this(applicationContext, actorBeanName, null);
+        this.applicationContext = applicationContext;
+        this.actorBeanName = actorBeanName;
+        this.requiredType = null;
+        this.args = null;
+    }
+
+    public SpringActorProducer(ApplicationContext applicationContext, String actorBeanName, Object[] args){
+        this.applicationContext = applicationContext;
+        this.actorBeanName = actorBeanName;
+        this.requiredType = null;
+        this.args = args;
     }
 
     public SpringActorProducer(ApplicationContext applicationContext, Class<?> requiredType){
-        this(applicationContext, null, requiredType);
+        this.applicationContext = applicationContext;
+        this.actorBeanName = null;
+        this.requiredType = requiredType;
+        this.args = null;
+    }
+
+    public SpringActorProducer(ApplicationContext applicationContext, Class<?> requiredType, Object[] args){
+        this.applicationContext = applicationContext;
+        this.actorBeanName = null;
+        this.requiredType = requiredType;
+        this.args = args;
     }
 
     public SpringActorProducer(ApplicationContext applicationContext, String actorBeanName, Class<?> requiredType){
         this.applicationContext = applicationContext;
         this.actorBeanName = actorBeanName;
         this.requiredType = requiredType;
+        this.args = null;
     }
 
     @Override
@@ -30,9 +52,18 @@ public class SpringActorProducer implements IndirectActorProducer {
         if (actorBeanName != null && requiredType != null) {
             result = (Actor) applicationContext.getBean(actorBeanName, requiredType);
         } else if (requiredType != null) {
-            result = (Actor) applicationContext.getBean(requiredType);
+            if (args == null) {
+                result = (Actor) applicationContext.getBean(requiredType);
+            } else {
+                result = (Actor) applicationContext.getBean(requiredType, args);
+            }
         } else {
-            result = (Actor) applicationContext.getBean(actorBeanName);
+            if (args == null) {
+                result = (Actor) applicationContext.getBean(actorBeanName);
+            } else {
+                result = (Actor) applicationContext.getBean(actorBeanName, args);
+            }
+
         }
         return result;
     }

@@ -61,8 +61,12 @@ public class SpringExtension extends AbstractExtensionId<SpringExtension.SpringE
          * @param actorBeanName The name of the actor bean to create Props for
          * @return a Props that will create the named actor bean using Spring
          */
-        public Props create(String actorBeanName) {
-            return Props.create(SpringActorProducer.class, applicationContext, actorBeanName);
+        public Props create(String actorBeanName, Object... args) {
+            return (args != null && args.length > 0) ? Props.create(SpringActorProducer.class, applicationContext,
+                                                                    actorBeanName,
+                                                                    args) : Props.create(SpringActorProducer.class,
+                                                                                         applicationContext,
+                                                                                         actorBeanName);
         }
 
         /**
@@ -73,8 +77,12 @@ public class SpringExtension extends AbstractExtensionId<SpringExtension.SpringE
          * whatever the class of the returned instance.
          * @return a Props that will create the actor bean using Spring
          */
-        public Props create(Class<?> requiredType) {
-            return Props.create(SpringActorProducer.class, applicationContext, requiredType);
+        public Props create(Class<?> requiredType, Object... args) {
+            return (args != null && args.length > 0) ? Props.create(SpringActorProducer.class, applicationContext,
+                                                                    requiredType,
+                                                                    args) : Props.create(SpringActorProducer.class,
+                                                                                         applicationContext,
+                                                                                         requiredType);
         }
 
         /**
